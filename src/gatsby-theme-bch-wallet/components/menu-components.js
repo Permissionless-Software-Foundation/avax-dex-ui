@@ -20,10 +20,10 @@ import DemoComponent from '../../demo-component'
 import TXHistory from 'gatsby-plugin-bch-tx-history'
 
 // Default components from gatsby-ipfs-web-wallet.
-import Wallet from 'gatsby-ipfs-web-wallet/src/components/admin-lte/wallet'
-import Tokens from 'gatsby-ipfs-web-wallet/src/components/admin-lte/tokens'
-import Configure from 'gatsby-ipfs-web-wallet/src/components/admin-lte/configure'
-import SendReceive from 'gatsby-ipfs-web-wallet/src/components/admin-lte/send-receive'
+import Wallet from 'gatsby-theme-bch-wallet/src/components/admin-lte/wallet'
+import Tokens from 'gatsby-theme-bch-wallet/src/components/admin-lte/tokens'
+import Configure from 'gatsby-theme-bch-wallet/src/components/admin-lte/configure'
+import SendReceive from 'gatsby-theme-bch-wallet/src/components/admin-lte/send-receive'
 
 const { Item } = Sidebar
 
@@ -54,20 +54,6 @@ const MenuComponents = props => {
       key: 'Configure',
       component: <Configure key='Configure' {...props} />,
       menuItem: <Item icon='fas-cog' key='Configure' text='Configure' />
-    },
-    {
-      key: 'TX History',
-      component: <TXHistory key='TX History' {...props} />,
-      menuItem: (
-        <Item icon='fas-cog' key='TX History' text='TX History' />
-      )
-    },
-    {
-      key: 'Demo Component',
-      component: <DemoComponent key='Demo Component' {...props} />,
-      menuItem: (
-        <Item icon='fas-cog' key='Demo Component' text='Demo Component' />
-      )
     }
   ]
 }
