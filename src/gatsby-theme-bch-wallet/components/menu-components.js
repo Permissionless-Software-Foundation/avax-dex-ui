@@ -11,13 +11,13 @@ import { Sidebar } from 'adminlte-2-react'
 
 // Example/Demo component. This is how you would build a component internal to
 // your wallet app/site.
-import DemoComponent from '../../demo-component'
+// import DemoComponent from '../../demo-component'
 
 // TX History Plugin.
 // This is an example of an external plugin for the wallet. It's a modular
 // approach to sharing 'lego blocks' between wallet apps.
 // import TXHistory from 'gatsby-plugin-bch-tx-history/src/components/txhistory'
-import TXHistory from 'gatsby-plugin-bch-tx-history'
+// import TXHistory from 'gatsby-plugin-bch-tx-history'
 
 // Default components from gatsby-ipfs-web-wallet.
 import Wallet from 'gatsby-theme-bch-wallet/src/components/admin-lte/wallet'
