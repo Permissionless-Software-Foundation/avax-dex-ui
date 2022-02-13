@@ -24,11 +24,17 @@ import Wallet from 'gatsby-theme-bch-wallet/src/components/admin-lte/wallet'
 import Tokens from 'gatsby-theme-bch-wallet/src/components/admin-lte/tokens'
 import Configure from 'gatsby-theme-bch-wallet/src/components/admin-lte/configure'
 import SendReceive from 'gatsby-theme-bch-wallet/src/components/admin-lte/send-receive'
-
+import Orders from '../../orders'
 const { Item } = Sidebar
 
 const MenuComponents = props => {
   return [
+    {
+      active: true,
+      key: 'Orders',
+      component: <Orders key='Orders' {...props} />,
+      menuItem: <Item icon='fas-coins' key='Orders' text='Orders' />
+    },
     {
       key: 'Tokens',
       component: <Tokens key='Tokens' {...props} />,
