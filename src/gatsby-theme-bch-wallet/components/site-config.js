@@ -4,21 +4,29 @@
 */
 
 const config = {
-  title: 'Wallet Demo',
-  titleShort: 'Demo',
-  balanceText: 'BCH Balance',
-  balanceIcon: 'fab-bitcoin',
+  title: "AVAX DEX",
+  titleShort: "DEX",
+  balanceText: "BCH Balance",
+  balanceIcon: "fab-bitcoin",
 
   // The BCH address used in a memo.cash account. Used for tracking the IPFS
   // hash of the mirror of this site.
-  memoAddr: 'bitcoincash:qzr4s6fwk55zvl7xqsjpr4k7zkqfmvcz7qapxys8t5',
+  memoAddr: "bitcoincash:qzr4s6fwk55zvl7xqsjpr4k7zkqfmvcz7qapxys8t5",
 
   // Footer Information
-  hostText: 'FullStack.cash',
-  hostUrl: 'https://fullstack.cash/',
-  sourceCode: 'https://github.com/Permissionless-Software-Foundation/bch-wallet-starter',
-  torUrl: 'tozqhxcrknbv5l3wshwgj6vp3bj5ezw7qp4jdn4bjrhcpetpcq74j7ad.onion',
-  clearWebUrl: 'https://demo-wallet.fullstack.cash'
+  hostText: "FullStack.cash",
+  hostUrl: "https://fullstack.cash/",
+  sourceCode:
+    "https://github.com/Permissionless-Software-Foundation/bch-wallet-starter",
+  torUrl: "tozqhxcrknbv5l3wshwgj6vp3bj5ezw7qp4jdn4bjrhcpetpcq74j7ad.onion",
+  clearWebUrl: "https://demo-wallet.fullstack.cash",
+
+  // Interface used by minial-slp-wallet
+  interface: "consumer-api",
+  restURL: "https://free-bch.fullstack.cash"
+  // restURL: 'http://localhost:5005'
+  // interface: 'rest-api',
+  // restURL: 'https://bchn.fullstack.cash/v5/'
 }
 
 module.exports = config
