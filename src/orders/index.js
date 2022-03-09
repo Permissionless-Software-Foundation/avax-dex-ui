@@ -1,10 +1,12 @@
 import React from 'react'
-import { Row, Col, Content, Box, DataTable } from 'adminlte-2-react'
+import { Row, Col, Content, Box, DataTable, Button, Inputs } from 'adminlte-2-react'
 import Details from './details'
 import './orders.css'
+const { Text } = Inputs
+
 const axios = require('axios').default
 
-const SERVER = 'http://localhost:5700/'
+const SERVER = 'http://localhost:5002/'
 // const EXPLORER_URL = 'https://explorer.bitcoin.com/bch/tx/'
 
 let _this
@@ -16,7 +18,9 @@ class Orders extends React.Component {
       showEntry: false,
       data: [],
       orders: [],
-      orderData: null
+      orderData: null,
+      showTakeModal: false,
+      takeInput: ''
     }
 
     this.firstColumns = [
@@ -34,48 +38,106 @@ class Orders extends React.Component {
           </span>
         )
       },
-      { title: 'Token Id', data: 'tokenId' },
-      { title: 'Status', data: 'orderStatus' }
+      {
+        title: 'Token Id',
+        data: 'tokenId',
+        render: id => (
+          <a href={`https://explorer-xp.avax.network/tx/${id}`} target='_blank' rel='noreferrer'>{id}</a>
+        )
+      },
+      { title: 'Status', data: 'orderStatus' },
+      {
+        title: '',
+        data: 'take',
+        render: order => (order.data.orderStatus === 'posted'
+          ? (
+            <div className='take-btn-table-wrapper'>
+              <Button
+                text='Take'
+                type='primary'
+                className='btn-lg on-click-event take-btn'
+                onClick={_this.handleTake}
+              />
+            </div>
+            )
+          : <p />
+        )
+
+      }
     ]
   }
 
   render () {
     const { data, orderData } = _this.state
     return (
-      <Content
-        title='Avax Orders'
-        subTitle='Avax Orders List'
-        browserTitle='Avax Orders List'
-      >
-        <Row>
-          {orderData && (
+      <>
+        <Content
+          title='Avax Orders'
+          subTitle='Avax Orders List'
+          browserTitle='Avax Orders List'
+        >
+          <Row>
+            {orderData && (
+              <Col xs={12}>
+                <Details order={orderData} onClose={_this.handleClose} onTake={_this.handleTake} />
+              </Col>
+            )}
             <Col xs={12}>
-              <Details order={orderData} onClose={_this.handleClose} />
+              <Box title='Order List'>
+                <DataTable
+                  id='OrdersTable'
+                  className='order-table'
+                  columns={_this.firstColumns}
+                  data={data}
+                  options={{
+                    paging: true,
+                    lengthChange: false,
+                    searching: false,
+                    ordering: false,
+                    info: true,
+                    autoWidth: false
+                  }}
+                  onClickEvents={{
+                    onClickEvent: (data, rowIdx, rowData) => {
+                      console.log(data)
+                      if (data.key === 'hashHandler') { _this.handleHashClick(data) }
+
+                      if (data.key === 'takeHandler') { _this.handleTake(data) }
+                    }
+                  }}
+                />
+              </Box>
             </Col>
-          )}
-          <Col xs={12}>
-            <Box title='Order List'>
-              <DataTable
-                columns={_this.firstColumns}
-                data={data}
-                options={{
-                  paging: true,
-                  lengthChange: false,
-                  searching: false,
-                  ordering: false,
-                  info: true,
-                  autoWidth: false
-                }}
-                onClickEvents={{
-                  onClickEvent: (data, rowIdx, rowData) => {
-                    _this.handleHashClick(data)
-                  }
-                }}
+          </Row>
+        </Content>
+        {
+        _this.state.showTakeModal && (
+          <Content
+            title='Take'
+            modal
+            show={_this.state.showTakeModal}
+            modalCloseButton
+            onHide={_this.handleClose}
+          >
+            <div className='take-form-wrapper'>
+              <Text
+                id='take-input'
+                name='TakeInput'
+                placeholder='Take'
+                label='Take'
+                labelPosition='above'
+                onChange={_this.handleModalInputs}
               />
-            </Box>
-          </Col>
-        </Row>
-      </Content>
+              <Button
+                text='Take'
+                type='primary'
+                className='btn-lg  take-btn-lg'
+              />
+            </div>
+          </Content>
+        )
+        }
+      </>
     )
   }
 
@@ -127,13 +189,18 @@ class Orders extends React.Component {
           buyOrSell: order.buyOrSell,
           // Hash row data
           offerHash: {
+            key: 'hashHandler',
             subString: _this.cutString(order.offerHash),
             order: order.hash,
             data: order
           },
           // App id row data
           tokenId: order.tokenId,
-          orderStatus: order.orderStatus
+          orderStatus: order.orderStatus,
+          take: {
+            key: 'takeHandler',
+            data: order
+          }
         }
         data.push(row)
       }
@@ -157,7 +224,7 @@ class Orders extends React.Component {
 
   handleHashClick (data) {
     try {
-    //  data.isValid = data.isValid.toString()
+      //  data.isValid = data.isValid.toString()
       _this.setState({
         orderData: data
       })
@@ -171,7 +238,23 @@ class Orders extends React.Component {
 
   handleClose () {
     _this.setState({
-      orderData: null
+      orderData: null,
+      showTakeModal: false
+    })
+  }
+
+  handleTake (order) {
+    if (!order.data.status === 'posted') return
+    _this.setState({
+      tankenInput: '',
+      showTakeModal: true
+    })
+  }
+
+  handleModalInputs (event) {
+    const value = event.target.value
+    _this.setState({
+      [event.target.name]: value
     })
   }
 }
