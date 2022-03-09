@@ -123,6 +123,12 @@ class Details extends React.Component {
                 <Col sm={12}>
                   <div className='btn-wrapper'>
                     <Button
+                      text='Take'
+                      type='primary'
+                      className='btn-lg on-click-event  mr-1 ml-1 mt-1 take-btn-lg'
+                      onClick={() => _this.props.onTake({ data: order })}
+                    />
+                    <Button
                       text='Close'
                       type='primary'
                       className='btn-lg btn-close-entry mr-1 ml-1 mt-1'
@@ -176,6 +182,7 @@ class Details extends React.Component {
 }
 Details.propTypes = {
   order: PropTypes.object,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  onTake: PropTypes.func
 }
 export default Details
