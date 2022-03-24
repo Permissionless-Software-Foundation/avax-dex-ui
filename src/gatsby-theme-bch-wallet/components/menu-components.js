@@ -60,7 +60,7 @@ const MenuComponents = props => {
     },
     {
       key: 'Wallet',
-      component: <Wallet key='Wallet' {...props} />,
+      component: <Wallet key='Wallet' interface='consumer-api' {...props} />,
       menuItem: <Item icon='fa-wallet' key='Wallet' text='Wallet' />
     },
     {

@@ -23,7 +23,7 @@ class Wallet2 extends Wallet {
   render () {
     return (
       <>
-        <Wallet {...this.props} importComponents={this.addCards()} />
+        <Wallet interface='consumer-api' {...this.props} importComponents={this.addCards()} />
       </>
     )
   }
